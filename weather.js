@@ -6,7 +6,7 @@ class Weather {
 
   async getWeather() {
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.api_key}`
+      `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.api_key}`
     );
     const resData = await response.json();
     return resData;

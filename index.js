@@ -5,15 +5,46 @@ const fs = require('fs');
 const server = http.createServer((req, res) => {
   let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
 
+  // extension of file
+
+  let extname = path.extname(filePath);
+
   // content type
   let contentType = 'text/html';
+
+  //check set
+  switch (extname) {
+    case '.js':
+      contentType = 'text/javascript';
+      break;
+    case '.css':
+      contentType = 'text/css';
+      break;
+    case '.json':
+      contentType = 'application/json';
+      break;
+    case '.png':
+      contentType = 'image/png';
+      break;
+    case '.jpg':
+      contentType = 'image/jpg';
+      break;
+  }
 
   // read file
   fs.readFile(filePath, (err, content) => {
     if (err) {
-      // server err
-      res.writeHead(500);
-      res.end(`Server error: ${err.code}`);
+      if (err.code == 'ENOENT') {
+        //page not found
+        fs.readFile(path.join(__dirname, 'index.html/?'), (err, content) => {
+          res.writeHead(200, { 'Content-Type': contentType });
+          res.end(content, 'utf8');
+        });
+      } else {
+        // server err
+        res.writeHead(500);
+        res.end(`Server error: ${err.code}`);
+      }
     } else {
       //success
       res.writeHead(200, { 'Content-Type': contentType });
