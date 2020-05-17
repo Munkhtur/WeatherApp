@@ -5,6 +5,7 @@ const ui = new UI();
 
 document.addEventListener('DOMContentLoaded', getWeather);
 document.getElementById('w-change-btn').addEventListener('click', (e) => {
+  e.preventDefault();
   const city = document.getElementById('city').value;
   weather.changeLocation(city);
   storage.setLocationData(city);
