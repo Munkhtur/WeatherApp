@@ -26,7 +26,7 @@ class UI {
     this.wind.textContent = `Wind Speed ${weather.wind.speed} m/s`;
     this.icon.setAttribute(
       'src',
-      `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
+      `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
     );
   }
 }
